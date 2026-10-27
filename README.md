@@ -8,7 +8,7 @@ Header-only C++11 library for static reflection for enums
 
 ```cpp
   #include "magic_enum_cpp11.hpp"
-  #include <iostream>
+  #include <stdio.h>
 
 enum Option {
     Minus = -1,

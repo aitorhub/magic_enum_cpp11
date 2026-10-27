@@ -34,7 +34,7 @@ ENUM_MAP_MAX_FUNCTION(Color, 0x80000000);
 
 int main() {
     for (const auto& item : GetMagicEnumMap<Color>()) {
-        std::printf(
+        printf(
             "0x%X => %s\n",
             static_cast<unsigned int>(item.first),
             item.second.c_str()

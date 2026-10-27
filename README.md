@@ -7,8 +7,8 @@ Header-only C++11 library for static reflection for enums
 ## [Features & Examples](example/)
 
 ```cpp
-  #include "magic_enum_cpp11.hpp"
-  #include <stdio.h>
+#include "magic_enum_cpp11.hpp"
+#include <stdio.h>
 
 enum Option {
     Minus = -1,
@@ -39,5 +39,6 @@ int main()
     for (auto& it : myOptionMap) {
         printf("myOptionMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
     }
-    printf("\n"); 
+    printf("\n");
+}
   ```

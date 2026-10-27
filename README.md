@@ -40,13 +40,4 @@ int main()
         printf("myOptionMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
     }
     printf("\n"); 
-
-
-  int main() {
-    Color c1 = Color::RED;
-    std::cout << magic_enum::enum_name(c1) << std::endl; // RED
-    return 0;
-  }
   ```
-## Licensed under the [MIT License](LICENSE)
-

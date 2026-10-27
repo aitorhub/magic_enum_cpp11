@@ -1,10 +1,9 @@
 [![Compiler explorer](https://img.shields.io/badge/compiler_explorer-online-blue.svg)](https://godbolt.org/z/f7cxEah8T)
-
 # Magic Enum C++
 
 Header-only C++11 library for static reflection for enums
 
-## [Features & Examples](example/)
+## Example
 
 ```cpp
 #include "magic_enum_cpp11.hpp"
@@ -41,4 +40,43 @@ int main()
     }
     printf("\n");
 }
-  ```
+```
+
+## Documentation
+```cpp
+/** ************************************ **/
+/** ENUM_MAP_EXTRA_VALUE_FUNCTION()
+  *  @brief compile-time enum parsing from (-)minusValue to maxValue and extraValue
+ **/
+/** ************************************ **/
+#define ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(enumType, minusValue, maxValue, extraValue)
+
+/** *************************************** **/
+/** ENUM_MAP_AND_EXTRA_VALUE_FUNCTION()
+  *  @brief compile-time enum parsing from -32 to 32
+  *         and also the extraValue
+ **/
+/** *************************************** **/
+#define ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(enumType, extraValue)
+
+/** ************************************ **/
+/** ENUM_MAP_MINMAX_FUNCTION()
+  *  @brief compile-time enum parsing from (-)minusValue to maxValue
+ **/
+/** ************************************ **/
+#define ENUM_MAP_MINMAX_FUNCTION(enumType, minusValue, maxValue)
+
+/** ************************************ **/
+/** ENUM_MAP_MAX_FUNCTION()
+  *  @brief compile-time enum parsing from 0 to maxValue
+ **/
+/** ************************************ **/
+#define ENUM_MAP_MAX_FUNCTION(enumType, maxValue)
+
+/** ************************************ **/
+/** ENUM_MAP_FUNCTION()
+  *  @brief compile-time enum parsing from -32 to 32
+ **/
+/** ************************************ **/
+#define ENUM_MAP_FUNCTION(enumType)
+```

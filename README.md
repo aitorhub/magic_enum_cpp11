@@ -20,26 +20,42 @@ macros in the enumeration definition, or external code generation.
 
 ```cpp
 #include "magic_enum_cpp11.hpp"
-#include <cstdio>
+#include <stdio.h>
 
-enum class Color : unsigned int {
+enum Option {
+    Minus = -1,
+    Zero = 0,
+    One = 1,
+};
+
+enum class Color : uint32_t {
     Red = 5,
     Green,
     Blue = 8,
     Black = 0x80000000,
 };
 
-// Register values from 0 to 0x80000000.
-ENUM_MAP_MAX_FUNCTION(Color, 0x80000000);
+// Create the reflection function GetMagicEnumMap<Option>()
+ENUM_MAP_FUNCTION(Option);    // By default, values from -32 to 32 are considered.
+
+// Registers reflection for Color.
+// The extra value is required because 0x80000000 is outside the default range.
+ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(Color, 0x80000000);
 
 int main() {
-    for (const auto& item : GetMagicEnumMap<Color>()) {
-        printf(
-            "0x%X => %s\n",
-            static_cast<unsigned int>(item.first),
-            item.second.c_str()
-        );
+    const auto& colorMap = GetMagicEnumMap<Color>();
+
+    for (const auto& entry : colorMap) {
+        printf("Color: key: 0x%X, value: %s\n", static_cast<unsigned int>(entry.first), entry.second.c_str());
     }
+
+    const auto& optionMap = GetMagicEnumMap<Option>();
+
+    for (const auto& entry : optionMap) {
+        printf("Option: key: %d, value: %s\n", static_cast<int>(entry.first), entry.second.c_str());
+    }
+
+    return 0;
 }
 ```
 

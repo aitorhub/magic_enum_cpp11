@@ -1,3 +1,6 @@
+#ifndef _MAGIC_ENUM_CPP11_H
+#define _MAGIC_ENUM_CPP11_H
+
 #include <stdint.h>
 #include <string.h>
 #include <stdarg.h>
@@ -10,8 +13,9 @@ namespace details {
         int32_t     size;
     };
 
-    constexpr int32_t constexpr_strchr(const char* str, char c, uint32_t idx = 0) {
-        return str[idx] == '\0' ? -1 : (str[idx] == c ? idx : constexpr_strchr(str, c, idx + 1));
+    constexpr int32_t
+    strchr_constexpr(const char* str, char c, uint32_t idx = 0) {
+        return str[idx] == '\0' ? -1 : (str[idx] == c ? idx : strchr_constexpr(str, c, idx + 1));
     }
 
     template<typename T, T eValue>
@@ -22,11 +26,8 @@ namespace details {
         // constexpr StringView GetEnumName() [with T = Color; T eValue = Color::Red]
         // "; T eValue = "
         // 012345678901234
-        return { __PRETTY_FUNCTION__ + constexpr_strchr(__PRETTY_FUNCTION__, ';') + 13,
-                constexpr_strchr(
-                                __PRETTY_FUNCTION__ + constexpr_strchr(__PRETTY_FUNCTION__, ';') + 13,
-                                /** search of **/ ']'
-                                )
+        return { __PRETTY_FUNCTION__ + strchr_constexpr(__PRETTY_FUNCTION__, ';') + 13,
+                strchr_constexpr(__PRETTY_FUNCTION__ + strchr_constexpr(__PRETTY_FUNCTION__, ';') + 13, ']' )
             };
     }
 } //! details
@@ -35,10 +36,12 @@ namespace details {
     {                                                                          \
         using namespace details;                                               \
         constexpr auto strview = GetEnumName<enumType, (enumType)enumValue>(); \
-        memcpy(pStr, strview.data, strview.size);                              \
-        pStr[strview.size] = '\0';                                             \
-        if (constexpr_strchr(pStr, '(') == -1) {                               \
-            enumMap.insert( { (enumType)enumValue, pStr } );                   \
+        if (strchr_constexpr(strview.data, '(') == -1) {                       \
+            memcpy(pStr, strview.data, strview.size);                          \
+            pStr[strview.size] = '\0';                                         \
+            int32_t iPos = strchr_constexpr(pStr, ':');  /** find "::" **/     \
+            enumMap.insert( { (enumType)enumValue,                             \
+                               iPos == -1? pStr : pStr + iPos + 2 } );         \
         }                                                                      \
     }
 
@@ -146,17 +149,19 @@ namespace details {
     ENUM2TEXT_MACRO(enumValue, enumType, enumName, enumMap);             \
 }
 
-// just declare the generic function, but never to use it
+namespace MagicEnum {
+// just declare the generic function
 template<typename enumType>
 std::map<enumType, std::string>& GetMagicEnumMap() = delete;
+} //! MagicEnum
 
 /** ************************************ **/
 /** ENUM_MAP_MINMAX_FUNCTION_IMPL()      **/
 /** ************************************ **/
 #define ENUM_MAP_MINMAX_FUNCTION_IMPL(enumType, minusValue, maxValue)       \
 template<>                                                                  \
-std::map<enumType, std::string>&                                            \
-GetMagicEnumMap<enumType>()                                                 \
+inline std::map<enumType, std::string>&                                     \
+MagicEnum::GetMagicEnumMap<enumType>()                                      \
 {                                                                           \
     static std::map<enumType, std::string> enumMap;                         \
     static bool isInit = false;                                             \
@@ -168,12 +173,12 @@ GetMagicEnumMap<enumType>()                                                 \
 }
 
 /** ************************************ **/
-/** ENUM_MAP_EXTRA_VALUE_FUNCTION()  **/
+/** ENUM_MAP_EXTRA_VALUE_FUNCTION()      **/
 /** ************************************ **/
 #define ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(enumType, minusValue, maxValue, extraValue)    \
 template<>                                                                                      \
-std::map<enumType, std::string>&                                                                \
-GetMagicEnumMap<enumType>()                                                                     \
+inline std::map<enumType, std::string>&                                                         \
+MagicEnum::GetMagicEnumMap<enumType>()                                                          \
 {                                                                                               \
     static std::map<enumType, std::string> enumMap;                                             \
     static bool isInit = false;                                                                 \
@@ -190,17 +195,20 @@ GetMagicEnumMap<enumType>()                                                     
 /** *************************************** **/
 #define ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(enumType, extraValue)     ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(enumType, 32, 32, extraValue)
 
-/** ************************************ **/
-/** ENUM_MAP_MINMAX_FUNCTION()           **/
-/** ************************************ **/
+/** *************************************** **/
+/** ENUM_MAP_MINMAX_FUNCTION()              **/
+/** *************************************** **/
 #define ENUM_MAP_MINMAX_FUNCTION(enumType, minusValue, maxValue)    ENUM_MAP_MINMAX_FUNCTION_IMPL(enumType, minusValue, maxValue)
 
-/** ************************************ **/
-/** ENUM_MAP_MAX_FUNCTION()              **/
-/** ************************************ **/
+/** *************************************** **/
+/** ENUM_MAP_MAX_FUNCTION()                 **/
+/** *************************************** **/
 #define ENUM_MAP_MAX_FUNCTION(enumType, maxValue)                   ENUM_MAP_MINMAX_FUNCTION_IMPL(enumType, 0, maxValue)
 
-/** ************************************ **/
-/** ENUM_MAP_FUNCTION()                  **/
-/** ************************************ **/
+/** *************************************** **/
+/** ENUM_MAP_FUNCTION()                     **/
+/** *************************************** **/
 #define ENUM_MAP_FUNCTION(enumType)                                 ENUM_MAP_MINMAX_FUNCTION_IMPL(enumType, 32, 32)
+
+
+#endif // _MAGIC_ENUM_CPP11_H

@@ -16,6 +16,17 @@ macros in the enumeration definition, or external code generation.
 - Generates an `std::map` from enumeration value to name.
 - Easy integration: copy one header into your project.
 
+| Macro | Registered range |
+|---|---|
+| `ENUM_MAP_FUNCTION(T)` | `-32` to `32` |
+| `ENUM_MAP_MAX_FUNCTION(T, max)` | `0` to `max` |
+| `ENUM_MAP_MINMAX_FUNCTION(T, min, max)` | `min` to `max` |
+| `ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(T, extra)` | `-32` to `32`, plus `extra` |
+| `ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(T, min, max, extra)` | `min` to `max`, plus `extra` |
+
+Use the `EXTRA_VALUE` macros when an enumeration contains a value outside
+the configured range.
+
 ## Quick start
 
 ```cpp
@@ -24,8 +35,8 @@ macros in the enumeration definition, or external code generation.
 
 enum Option {
     Minus = -1,
-    Zero = 0,
-    One = 1,
+    Zero  =  0,
+    One   =  1,
 };
 
 enum class Color : uint32_t {
@@ -35,37 +46,72 @@ enum class Color : uint32_t {
     Black = 0x80000000,
 };
 
-// Create the reflection function GetMagicEnumMap<Option>()
-ENUM_MAP_FUNCTION(Option);    // By default, values from -32 to 32 are considered.
+// this generates the GetMagicEnumMap<> functions (default range [-32, 32]
 
-// Registers reflection for Color.
-// The extra value is required because 0x80000000 is outside the default range.
+/** Important: the ENUM_MAP_FUNCTION() function must be put
+ *  OUTSIDE any namespace in order to work **/
+ENUM_MAP_FUNCTION(Option);
+
+// scan enum from -32 to 32 and an extra value given by the user
 ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(Color, 0x80000000);
 
-int main() {
-    const auto& colorMap = GetMagicEnumMap<Color>();
+enum class MiniOption { NOK = -3, OK =  1 };
+ENUM_MAP_MINMAX_FUNCTION(MiniOption, 3, 1);
 
-    for (const auto& entry : colorMap) {
-        printf("Color: key: 0x%X, value: %s\n", static_cast<unsigned int>(entry.first), entry.second.c_str());
+int main()
+{
+    auto myColorMap = MagicEnum::GetMagicEnumMap<Color>();
+    for (auto& it : myColorMap) {
+        printf("myColorMap: key: 0x%X value: %s \n", (int)it.first, it.second.c_str() ); 
     }
+    putchar('\n');
 
-    const auto& optionMap = GetMagicEnumMap<Option>();
-
-    for (const auto& entry : optionMap) {
-        printf("Option: key: %d, value: %s\n", static_cast<int>(entry.first), entry.second.c_str());
+    auto myOptionMap = MagicEnum::GetMagicEnumMap<Option>();
+    for (auto& it : myOptionMap) {
+        printf("myOptionMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
     }
+    putchar('\n');
+
+    /** ************************************************
+      * Other ways: First declare your enum map, and later populate it
+      ************************************************ */
+    std::map<Color, std::string> colorMap;
+    ENUM2TEXT_FILL_MAP(Color, colorMap);
+    /** output:
+        myColorMap: key: 0x5 value: Red 
+        myColorMap: key: 0x6 value: Green 
+        myColorMap: key: 0x8 value: Blue 
+    **/
+
+    // ... and later add the extra field with the big number
+    ENUM2TEXT_FILL_MAP_ADD_EXACT_VALUE(Color, colorMap, 0x80000000);
+    /** output:
+        myColorMap: key: 0x5 value: Red 
+        myColorMap: key: 0x6 value: Green 
+        myColorMap: key: 0x8 value: Blue 
+        myColorMap: key: 0x80000000 value: Black 
+    **/
+  
+    /** ************************************************
+      * Explicitly put the range, in this case, from -5 to 10 
+      ************************************************ */
+    std::map<Option, std::string> optionMap;
+    ENUM2TEXT_FILL_MAP_MINMAX(Option, optionMap, 5, 10);
 
     return 0;
 }
 ```
 
-Expected output:
-
+Output:
 ```text
-0x5 => Red
-0x6 => Green
-0x8 => Blue
-0x80000000 => Black
+myColorMap: key: 0x5 value: Red 
+myColorMap: key: 0x6 value: Green 
+myColorMap: key: 0x8 value: Blue 
+myColorMap: key: 0x80000000 value: Black
+
+myOptionMap: key: -1 value: Minus 
+myOptionMap: key: 0 value: Zero 
+myOptionMap: key: 1 value: One 
 ```
 
 ## Installation
@@ -80,18 +126,7 @@ No build system integration or external dependencies are required.
 
 ## Reflection macros
 
-Register an enumeration before using `GetMagicEnumMap<T>()`.
-
-| Macro | Registered range |
-|---|---|
-| `ENUM_MAP_FUNCTION(T)` | `-32` to `32` |
-| `ENUM_MAP_MAX_FUNCTION(T, max)` | `0` to `max` |
-| `ENUM_MAP_MINMAX_FUNCTION(T, min, max)` | `min` to `max` |
-| `ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(T, extra)` | `-32` to `32`, plus `extra` |
-| `ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(T, min, max, extra)` | `min` to `max`, plus `extra` |
-
-Use the `EXTRA_VALUE` macros when an enumeration contains a value outside
-the configured range.
+Register an enumeration before using `MagicEnum::GetMagicEnumMap<T>()`.
 
 ## Requirements
 

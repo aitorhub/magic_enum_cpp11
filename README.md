@@ -47,9 +47,7 @@ enum class Color : uint32_t {
 };
 
 // this generates the GetMagicEnumMap<> functions (default range [-32, 32]
-
-/** Important: the ENUM_MAP_FUNCTION() function must be put
- *  OUTSIDE any namespace in order to work **/
+/** Important: the ENUM_MAP_FUNCTION() function must be put OUTSIDE any namespace in order to work **/
 ENUM_MAP_FUNCTION(Option);
 
 // scan enum from -32 to 32 and an extra value given by the user

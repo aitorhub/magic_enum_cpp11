@@ -56,6 +56,17 @@ ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(Color, 0x80000000);
 enum class MiniOption { NOK = -3, OK =  1 };
 ENUM_MAP_MINMAX_FUNCTION(MiniOption, 3, 1);
 
+namespace MainScope {
+    namespace NestedScope {
+        enum class Property {
+            Activated = 5,
+            PowerOff,
+        };
+    }
+}
+
+ENUM_MAP_FUNCTION(MainScope::NestedScope::Property);
+
 int main()
 {
     auto myColorMap = MagicEnum::GetMagicEnumMap<Color>();
@@ -67,6 +78,12 @@ int main()
     auto myOptionMap = MagicEnum::GetMagicEnumMap<Option>();
     for (auto& it : myOptionMap) {
         printf("myOptionMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
+    }
+    putchar('\n');
+
+    auto myPropertyList = MagicEnum::GetMagicEnumMap<MainScope::NestedScope::Property>();
+    for (auto& it : myPropertyList) {
+        printf("myPropertyList: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
     }
     putchar('\n');
 
@@ -109,7 +126,10 @@ myColorMap: key: 0x80000000 value: Black
 
 myOptionMap: key: -1 value: Minus 
 myOptionMap: key: 0 value: Zero 
-myOptionMap: key: 1 value: One 
+myOptionMap: key: 1 value: One
+
+myPropertyList: key: 5 value: Activated 
+myPropertyList: key: 6 value: PowerOff 
 ```
 
 ## Installation

@@ -7,55 +7,6 @@
 #include <string>
 #include <map>
 
-namespace details {
-    struct StringView {
-        const char* data;
-        int32_t     size;
-    };
-
-    constexpr int32_t 
-    strchr_constexpr(const char* str, char c, uint32_t idx = 0) {
-        return str[idx] == '\0' ? -1 : (str[idx] == c ? idx : strchr_constexpr(str, c, idx + 1));
-    }
-    constexpr int32_t
-    strlen_constexpr(const char* pStr, int index = 0) {
-        return (*pStr == '\0')? index : strlen_constexpr(pStr + 1, index + 1);
-    }
-    
-    constexpr const char* strrchr_constexpr_impl(const char* pStr, char c, int len) {
-        return len == 0? NULL : (pStr[len] == c)? pStr + len : strrchr_constexpr_impl(pStr, c, len - 1);
-    }
-    constexpr const char* strrchr_constexpr(const char* str, char c) {
-        return strrchr_constexpr_impl(str, c, strlen_constexpr(str));
-    }
-
-    template<typename T, T eValue>
-    constexpr
-    StringView
-    GetEnumName()
-    {
-        // constexpr StringView GetEnumName() [with T = Color; T eValue = Color::Red]
-        // "; T eValue = "
-        // 012345678901234
-        return { __PRETTY_FUNCTION__ + strchr_constexpr(__PRETTY_FUNCTION__, ';') + 13,
-                strchr_constexpr(__PRETTY_FUNCTION__ + strchr_constexpr(__PRETTY_FUNCTION__, ';') + 13, ']' )
-            };
-    }
-} //! details
-
-#define ENUM2TEXT_MACRO(enumValue, enumType, pStr, enumMap)                    \
-    {                                                                          \
-        using namespace details;                                               \
-        constexpr auto strview = GetEnumName<enumType, (enumType)enumValue>(); \
-        if (strchr_constexpr(strview.data, '(') == -1) {                       \
-            memcpy(pStr, strview.data, strview.size);                          \
-            pStr[strview.size] = '\0';                                         \
-            const char* pLastStr = strrchr_constexpr(pStr, ':'); /** find last "::" **/ \
-            enumMap.insert( { (enumType)enumValue,                             \
-                               pLastStr == nullptr? pStr : pLastStr + 1 } );   \
-        }                                                                      \
-    }
-
 #define REPEAT_N_MINUS_0(N, FUNCTION, ...)
 #define REPEAT_N_MINUS_1(N, FUNCTION, ...)   FUNCTION(-1, __VA_ARGS__)
 #define REPEAT_N_MINUS_2(N, FUNCTION, ...)   REPEAT_N_MINUS_1((N-1), FUNCTION, __VA_ARGS__) FUNCTION(-N, __VA_ARGS__)
@@ -129,6 +80,59 @@ namespace details {
 
 #define REPEAT_N_HELPER(N, FUNCTION, ...)    REPEAT_N_IMPL_##N(N, FUNCTION, __VA_ARGS__)
 #define REPEAT_N(N, FUNCTION, ...)           REPEAT_N_HELPER(N, FUNCTION, __VA_ARGS__)
+
+// --------------------------------------------------------
+// MACRO trick END
+// --------------------------------------------------------
+
+namespace details {
+    struct StringView {
+        const char* data;
+        int32_t     size;
+    };
+
+    constexpr int32_t 
+    strchr_constexpr(const char* str, char c, uint32_t idx = 0) {
+        return str[idx] == '\0' ? -1 : (str[idx] == c ? idx : strchr_constexpr(str, c, idx + 1));
+    }
+    constexpr int32_t
+    strlen_constexpr(const char* pStr, int index = 0) {
+        return (*pStr == '\0')? index : strlen_constexpr(pStr + 1, index + 1);
+    }
+    
+    constexpr const char* strrchr_constexpr_impl(const char* pStr, char c, int len) {
+        return len == 0? NULL : (pStr[len] == c)? pStr + len : strrchr_constexpr_impl(pStr, c, len - 1);
+    }
+    constexpr const char* strrchr_constexpr(const char* str, char c) {
+        return strrchr_constexpr_impl(str, c, strlen_constexpr(str));
+    }
+
+    template<typename T, T eValue>
+    constexpr
+    StringView
+    GetEnumName()
+    {
+        // constexpr StringView GetEnumName() [with T = Color; T eValue = Color::Red]
+        // "; T eValue = "
+        // 012345678901234
+        return { __PRETTY_FUNCTION__ + strchr_constexpr(__PRETTY_FUNCTION__, ';') + 13,
+                strchr_constexpr(__PRETTY_FUNCTION__ + strchr_constexpr(__PRETTY_FUNCTION__, ';') + 13, ']' )
+            };
+    }
+} //! details
+
+#define ENUM2TEXT_MACRO(enumValue, enumType, pStr, enumMap)                    \
+    {                                                                          \
+        using namespace details;                                               \
+        constexpr auto strview = GetEnumName<enumType, (enumType)enumValue>(); \
+        if (strchr_constexpr(strview.data, '(') == -1) {                       \
+            memcpy(pStr, strview.data, strview.size);                          \
+            pStr[strview.size] = '\0';                                         \
+            const char* pLastStr = strrchr_constexpr(pStr, ':'); /** find last "::" **/ \
+            enumMap.insert( { (enumType)enumValue,                             \
+                               pLastStr == nullptr? pStr : pLastStr + 1 } );   \
+        }                                                                      \
+    }
 
 /** *********************************** **/
 //  ENUM2TEXT_FILL_MAP_MINMAX()

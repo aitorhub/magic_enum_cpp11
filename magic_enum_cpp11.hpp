@@ -13,9 +13,20 @@ namespace details {
         int32_t     size;
     };
 
-    constexpr int32_t
+    constexpr int32_t 
     strchr_constexpr(const char* str, char c, uint32_t idx = 0) {
         return str[idx] == '\0' ? -1 : (str[idx] == c ? idx : strchr_constexpr(str, c, idx + 1));
+    }
+    constexpr int32_t
+    strlen_constexpr(const char* pStr, int index = 0) {
+        return (*pStr == '\0')? index : strlen_constexpr(pStr + 1, index + 1);
+    }
+    
+    constexpr const char* strrchr_constexpr_impl(const char* pStr, char c, int len) {
+        return len == 0? NULL : (pStr[len] == c)? pStr + len : strrchr_constexpr_impl(pStr, c, len - 1);
+    }
+    constexpr const char* strrchr_constexpr(const char* str, char c) {
+        return strrchr_constexpr_impl(str, c, strlen_constexpr(str));
     }
 
     template<typename T, T eValue>
@@ -39,9 +50,9 @@ namespace details {
         if (strchr_constexpr(strview.data, '(') == -1) {                       \
             memcpy(pStr, strview.data, strview.size);                          \
             pStr[strview.size] = '\0';                                         \
-            int32_t iPos = strchr_constexpr(pStr, ':');  /** find "::" **/     \
+            const char* pLastStr = strrchr_constexpr(pStr, ':'); /** find last "::" **/ \
             enumMap.insert( { (enumType)enumValue,                             \
-                               iPos == -1? pStr : pStr + iPos + 2 } );         \
+                               pLastStr == nullptr? pStr : pLastStr + 1 } );   \
         }                                                                      \
     }
 
@@ -209,6 +220,5 @@ MagicEnum::GetMagicEnumMap<enumType>()                                          
 /** ENUM_MAP_FUNCTION()                     **/
 /** *************************************** **/
 #define ENUM_MAP_FUNCTION(enumType)                                 ENUM_MAP_MINMAX_FUNCTION_IMPL(enumType, 32, 32)
-
 
 #endif // _MAGIC_ENUM_CPP11_H

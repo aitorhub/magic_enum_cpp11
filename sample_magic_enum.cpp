@@ -27,6 +27,17 @@ ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(Color, 0x80000000);
 enum class MiniOption { NOK = -3, OK =  1 };
 ENUM_MAP_MINMAX_FUNCTION(MiniOption, 3, 1);
 
+// just the enumerator name is saved, no "::"
+namespace MainScope {
+    namespace NestedScope {
+        enum class Property {
+            Activated = 5,
+            PowerOff,
+        };
+    }
+}
+ENUM_MAP_FUNCTION(MainScope::NestedScope::Property);
+
 int main()
 {
     auto myColorMap = MagicEnum::GetMagicEnumMap<Color>();
@@ -50,6 +61,12 @@ int main()
         myOptionMap: key: -1 value: Minus 
         myOptionMap: key: 0 value: Zero 
         myOptionMap: key: 1 value: One 
+    **/
+
+    auto myPropertyList = MagicEnum::GetMagicEnumMap<MainScope::NestedScope::Property>();
+    /** output:
+        myPropertyList: key: 5 value: Activated 
+        myPropertyList: key: 6 value: PowerOff 
     **/
 
     /** ************************************************

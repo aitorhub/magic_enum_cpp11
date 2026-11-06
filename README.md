@@ -18,10 +18,10 @@ macros in the enumeration definition, or external code generation.
 
 | Macro | Registered range |
 |---|---|
-| `ENUM_MAP_FUNCTION(T)` | `-32` to `32` |
+| `ENUM_MAP_FUNCTION(T)` | `-8` to `128` |
 | `ENUM_MAP_MAX_FUNCTION(T, max)` | `0` to `max` |
 | `ENUM_MAP_MINMAX_FUNCTION(T, min, max)` | `min` to `max` |
-| `ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(T, extra)` | `-32` to `32`, plus `extra` |
+| `ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(T, extra)` | `-8` to `128`, plus `extra` |
 | `ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(T, min, max, extra)` | `min` to `max`, plus `extra` |
 
 Use the `EXTRA_VALUE` macros when an enumeration contains a value outside
@@ -46,11 +46,11 @@ enum class Color : uint32_t {
     Black = 0x80000000,
 };
 
-// this generates the GetMagicEnumMap<> functions (default range [-32, 32]
+// this generates the GetMagicEnumMap<> functions (default range [-8, 128]
 /** Important: the ENUM_MAP_FUNCTION() function must be put OUTSIDE any namespace in order to work **/
 ENUM_MAP_FUNCTION(Option);
 
-// scan enum from -32 to 32 and an extra value given by the user
+// scan enum from -8 to 128 and an extra value given by the user
 ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(Color, 0x80000000);
 
 enum class MiniOption { NOK = -3, OK =  1 };

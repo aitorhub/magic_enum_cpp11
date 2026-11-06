@@ -7,6 +7,9 @@
 #include <string>
 #include <map>
 
+// --------------------------------------------------------
+// MACRO trick to repeat a command
+// --------------------------------------------------------
 #define REPEAT_N_MINUS_0(N, FUNCTION, ...)
 #define REPEAT_N_MINUS_1(N, FUNCTION, ...)   FUNCTION(-1, __VA_ARGS__)
 #define REPEAT_N_MINUS_2(N, FUNCTION, ...)   REPEAT_N_MINUS_1((N-1), FUNCTION, __VA_ARGS__) FUNCTION(-N, __VA_ARGS__)
@@ -77,6 +80,102 @@
 #define REPEAT_N_IMPL_30(N, FUNCTION, ...)   REPEAT_N_IMPL_29((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
 #define REPEAT_N_IMPL_31(N, FUNCTION, ...)   REPEAT_N_IMPL_30((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
 #define REPEAT_N_IMPL_32(N, FUNCTION, ...)   REPEAT_N_IMPL_31((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_33(N, FUNCTION, ...)   REPEAT_N_IMPL_32((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_34(N, FUNCTION, ...)   REPEAT_N_IMPL_33((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_35(N, FUNCTION, ...)   REPEAT_N_IMPL_34((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_36(N, FUNCTION, ...)   REPEAT_N_IMPL_35((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_37(N, FUNCTION, ...)   REPEAT_N_IMPL_36((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_38(N, FUNCTION, ...)   REPEAT_N_IMPL_37((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_39(N, FUNCTION, ...)   REPEAT_N_IMPL_38((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_40(N, FUNCTION, ...)   REPEAT_N_IMPL_39((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_41(N, FUNCTION, ...)   REPEAT_N_IMPL_40((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_42(N, FUNCTION, ...)   REPEAT_N_IMPL_41((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_43(N, FUNCTION, ...)   REPEAT_N_IMPL_42((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_44(N, FUNCTION, ...)   REPEAT_N_IMPL_43((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_45(N, FUNCTION, ...)   REPEAT_N_IMPL_44((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_46(N, FUNCTION, ...)   REPEAT_N_IMPL_45((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_47(N, FUNCTION, ...)   REPEAT_N_IMPL_46((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_48(N, FUNCTION, ...)   REPEAT_N_IMPL_47((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_49(N, FUNCTION, ...)   REPEAT_N_IMPL_48((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_50(N, FUNCTION, ...)   REPEAT_N_IMPL_49((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_51(N, FUNCTION, ...)   REPEAT_N_IMPL_50((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_52(N, FUNCTION, ...)   REPEAT_N_IMPL_51((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_53(N, FUNCTION, ...)   REPEAT_N_IMPL_52((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_54(N, FUNCTION, ...)   REPEAT_N_IMPL_53((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_55(N, FUNCTION, ...)   REPEAT_N_IMPL_54((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_56(N, FUNCTION, ...)   REPEAT_N_IMPL_55((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_57(N, FUNCTION, ...)   REPEAT_N_IMPL_56((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_58(N, FUNCTION, ...)   REPEAT_N_IMPL_57((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_59(N, FUNCTION, ...)   REPEAT_N_IMPL_58((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_60(N, FUNCTION, ...)   REPEAT_N_IMPL_59((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_61(N, FUNCTION, ...)   REPEAT_N_IMPL_60((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_62(N, FUNCTION, ...)   REPEAT_N_IMPL_61((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_63(N, FUNCTION, ...)   REPEAT_N_IMPL_62((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_64(N, FUNCTION, ...)   REPEAT_N_IMPL_63((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_65(N, FUNCTION, ...)   REPEAT_N_IMPL_64((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_66(N, FUNCTION, ...)   REPEAT_N_IMPL_65((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_67(N, FUNCTION, ...)   REPEAT_N_IMPL_66((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_68(N, FUNCTION, ...)   REPEAT_N_IMPL_67((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_69(N, FUNCTION, ...)   REPEAT_N_IMPL_68((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_70(N, FUNCTION, ...)   REPEAT_N_IMPL_69((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_71(N, FUNCTION, ...)   REPEAT_N_IMPL_70((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_72(N, FUNCTION, ...)   REPEAT_N_IMPL_71((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_73(N, FUNCTION, ...)   REPEAT_N_IMPL_72((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_74(N, FUNCTION, ...)   REPEAT_N_IMPL_73((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_75(N, FUNCTION, ...)   REPEAT_N_IMPL_74((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_76(N, FUNCTION, ...)   REPEAT_N_IMPL_75((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_77(N, FUNCTION, ...)   REPEAT_N_IMPL_76((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_78(N, FUNCTION, ...)   REPEAT_N_IMPL_77((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_79(N, FUNCTION, ...)   REPEAT_N_IMPL_78((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_80(N, FUNCTION, ...)   REPEAT_N_IMPL_79((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_81(N, FUNCTION, ...)   REPEAT_N_IMPL_80((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_82(N, FUNCTION, ...)   REPEAT_N_IMPL_81((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_83(N, FUNCTION, ...)   REPEAT_N_IMPL_82((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_84(N, FUNCTION, ...)   REPEAT_N_IMPL_83((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_85(N, FUNCTION, ...)   REPEAT_N_IMPL_84((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_86(N, FUNCTION, ...)   REPEAT_N_IMPL_85((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_87(N, FUNCTION, ...)   REPEAT_N_IMPL_86((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_88(N, FUNCTION, ...)   REPEAT_N_IMPL_87((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_89(N, FUNCTION, ...)   REPEAT_N_IMPL_88((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_90(N, FUNCTION, ...)   REPEAT_N_IMPL_89((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_91(N, FUNCTION, ...)   REPEAT_N_IMPL_90((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_92(N, FUNCTION, ...)   REPEAT_N_IMPL_91((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_93(N, FUNCTION, ...)   REPEAT_N_IMPL_92((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_94(N, FUNCTION, ...)   REPEAT_N_IMPL_93((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_95(N, FUNCTION, ...)   REPEAT_N_IMPL_94((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_96(N, FUNCTION, ...)   REPEAT_N_IMPL_95((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_97(N, FUNCTION, ...)   REPEAT_N_IMPL_96((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_98(N, FUNCTION, ...)   REPEAT_N_IMPL_97((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_99(N, FUNCTION, ...)   REPEAT_N_IMPL_98((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_100(N, FUNCTION, ...)  REPEAT_N_IMPL_99((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_101(N, FUNCTION, ...)  REPEAT_N_IMPL_100((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_102(N, FUNCTION, ...)  REPEAT_N_IMPL_101((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_103(N, FUNCTION, ...)  REPEAT_N_IMPL_102((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_104(N, FUNCTION, ...)  REPEAT_N_IMPL_103((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_105(N, FUNCTION, ...)  REPEAT_N_IMPL_104((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_106(N, FUNCTION, ...)  REPEAT_N_IMPL_105((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_107(N, FUNCTION, ...)  REPEAT_N_IMPL_106((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_108(N, FUNCTION, ...)  REPEAT_N_IMPL_107((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_109(N, FUNCTION, ...)  REPEAT_N_IMPL_108((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_110(N, FUNCTION, ...)  REPEAT_N_IMPL_109((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_111(N, FUNCTION, ...)  REPEAT_N_IMPL_110((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_112(N, FUNCTION, ...)  REPEAT_N_IMPL_111((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_113(N, FUNCTION, ...)  REPEAT_N_IMPL_112((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_114(N, FUNCTION, ...)  REPEAT_N_IMPL_113((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_115(N, FUNCTION, ...)  REPEAT_N_IMPL_114((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_116(N, FUNCTION, ...)  REPEAT_N_IMPL_115((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_117(N, FUNCTION, ...)  REPEAT_N_IMPL_116((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_118(N, FUNCTION, ...)  REPEAT_N_IMPL_117((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_119(N, FUNCTION, ...)  REPEAT_N_IMPL_118((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_120(N, FUNCTION, ...)  REPEAT_N_IMPL_119((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_121(N, FUNCTION, ...)  REPEAT_N_IMPL_120((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_122(N, FUNCTION, ...)  REPEAT_N_IMPL_121((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_123(N, FUNCTION, ...)  REPEAT_N_IMPL_122((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_124(N, FUNCTION, ...)  REPEAT_N_IMPL_123((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_125(N, FUNCTION, ...)  REPEAT_N_IMPL_124((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_126(N, FUNCTION, ...)  REPEAT_N_IMPL_125((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_127(N, FUNCTION, ...)  REPEAT_N_IMPL_126((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
+#define REPEAT_N_IMPL_128(N, FUNCTION, ...)  REPEAT_N_IMPL_127((N-1), FUNCTION, __VA_ARGS__) FUNCTION(N, __VA_ARGS__)
 
 #define REPEAT_N_HELPER(N, FUNCTION, ...)    REPEAT_N_IMPL_##N(N, FUNCTION, __VA_ARGS__)
 #define REPEAT_N(N, FUNCTION, ...)           REPEAT_N_HELPER(N, FUNCTION, __VA_ARGS__)
@@ -121,17 +220,17 @@ namespace details {
     }
 } //! details
 
-#define ENUM2TEXT_MACRO(enumValue, enumType, pStr, enumMap)                    \
-    {                                                                          \
-        using namespace details;                                               \
-        constexpr auto strview = GetEnumName<enumType, (enumType)enumValue>(); \
-        if (strchr_constexpr(strview.data, '(') == -1) {                       \
-            memcpy(pStr, strview.data, strview.size);                          \
-            pStr[strview.size] = '\0';                                         \
+#define ENUM2TEXT_MACRO(enumValue, enumType, pStr, enumMap)                             \
+    {                                                                                   \
+        using namespace details;                                                        \
+        constexpr auto strview = GetEnumName<enumType, (enumType)enumValue>();          \
+        if (strchr_constexpr(strview.data, '(') == -1) {                                \
+            memcpy(pStr, strview.data, strview.size);                                   \
+            pStr[strview.size] = '\0';                                                  \
             const char* pLastStr = strrchr_constexpr(pStr, ':'); /** find last "::" **/ \
-            enumMap.insert( { (enumType)enumValue,                             \
-                               pLastStr == nullptr? pStr : pLastStr + 1 } );   \
-        }                                                                      \
+            enumMap.insert( { (enumType)enumValue,                                      \
+                               pLastStr == nullptr? pStr : pLastStr + 1 } );            \
+        }                                                                               \
     }
 
 /** *********************************** **/
@@ -153,7 +252,7 @@ namespace details {
 /** *********************************** **/
 /** ENUM2TEXT_FILL_MAP()                **/
 /** *********************************** **/
-#define ENUM2TEXT_FILL_MAP(enumType, enumMap)               ENUM2TEXT_FILL_MAP_MINMAX(enumType, enumMap, 32, 32)
+#define ENUM2TEXT_FILL_MAP(enumType, enumMap)               ENUM2TEXT_FILL_MAP_MINMAX(enumType, enumMap, 10, 128)
 
 /** ************************************ **/
 /** ENUM2TEXT_FILL_MAP_ADD_EXACT_VALUE() **/
@@ -164,6 +263,9 @@ namespace details {
     ENUM2TEXT_MACRO(enumValue, enumType, enumName, enumMap);             \
 }
 
+/** ************************************ **/
+/** MagicEnum::GetMagicEnumMap()         **/
+/** ************************************ **/
 namespace MagicEnum {
 // just declare the generic function
 template<typename enumType>
@@ -208,7 +310,7 @@ MagicEnum::GetMagicEnumMap<enumType>()                                          
 /** *************************************** **/
 /** ENUM_MAP_AND_EXTRA_VALUE_FUNCTION()     **/
 /** *************************************** **/
-#define ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(enumType, extraValue)     ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(enumType, 32, 32, extraValue)
+#define ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(enumType, extraValue)     ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(enumType, 8, 128, extraValue)
 
 /** *************************************** **/
 /** ENUM_MAP_MINMAX_FUNCTION()              **/
@@ -223,6 +325,6 @@ MagicEnum::GetMagicEnumMap<enumType>()                                          
 /** *************************************** **/
 /** ENUM_MAP_FUNCTION()                     **/
 /** *************************************** **/
-#define ENUM_MAP_FUNCTION(enumType)                                 ENUM_MAP_MINMAX_FUNCTION_IMPL(enumType, 32, 32)
+#define ENUM_MAP_FUNCTION(enumType)                                 ENUM_MAP_MINMAX_FUNCTION_IMPL(enumType, 8, 128)
 
 #endif // _MAGIC_ENUM_CPP11_H

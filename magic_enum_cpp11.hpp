@@ -273,38 +273,54 @@ std::map<enumType, std::string>& GetMagicEnumMap() = delete;
 } //! MagicEnum
 
 /** ************************************ **/
+/** ENUM_MAP_MINMAX_DECLARE_IMPL()       **/
+/** ************************************ **/
+#define ENUM_MAP_MINMAX_DECLARE_IMPL(enumMapName, enumType, minusValue, maxValue) \
+    static std::map<enumType, std::string> enumMapName;                           \
+    {                                                                             \
+      static bool isInit = false;                                                 \
+      if (isInit == false) {                                                      \
+          isInit = true;                                                          \
+          ENUM2TEXT_FILL_MAP_MINMAX(enumType, enumMapName, minusValue, maxValue); \
+      }                                                                           \
+    }
+
+/** ********************************************** **/
+/** ENUM_MAP_MINMAX_AND_EXTRA_VALUE_DECLARE_IMPL() **/
+/** ********************************************** **/
+#define ENUM_MAP_MINMAX_AND_EXTRA_VALUE_DECLARE_IMPL(enumMapName, enumType, minusValue, maxValue, extraValue) \
+    static std::map<enumType, std::string> enumMapName;                           \
+    {                                                                             \
+      static bool isInit = false;                                                 \
+      if (isInit == false) {                                                      \
+          isInit = true;                                                          \
+          ENUM2TEXT_FILL_MAP_MINMAX(enumType, enumMapName, minusValue, maxValue); \
+          ENUM2TEXT_FILL_MAP_ADD_EXACT_VALUE(enumType, enumMapName, extraValue);  \
+      }                                                                           \
+    }
+
+/** ************************************ **/
 /** ENUM_MAP_MINMAX_FUNCTION_IMPL()      **/
 /** ************************************ **/
-#define ENUM_MAP_MINMAX_FUNCTION_IMPL(enumType, minusValue, maxValue)       \
-template<>                                                                  \
-inline std::map<enumType, std::string>&                                     \
-MagicEnum::GetMagicEnumMap<enumType>()                                      \
-{                                                                           \
-    static std::map<enumType, std::string> enumMap;                         \
-    static bool isInit = false;                                             \
-    if (isInit == false) {                                                  \
-        isInit = true;                                                      \
-        ENUM2TEXT_FILL_MAP_MINMAX(enumType, enumMap, minusValue, maxValue); \
-    }                                                                       \
-    return enumMap;                                                         \
+#define ENUM_MAP_MINMAX_FUNCTION_IMPL(enumType, minusValue, maxValue)      \
+template<>                                                                 \
+inline std::map<enumType, std::string>&                                    \
+MagicEnum::GetMagicEnumMap<enumType>()                                     \
+{                                                                          \
+    ENUM_MAP_MINMAX_DECLARE_IMPL(enumMap, enumType, minusValue, maxValue); \
+    return enumMap;                                                        \
 }
 
 /** ************************************ **/
 /** ENUM_MAP_EXTRA_VALUE_FUNCTION()      **/
 /** ************************************ **/
-#define ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(enumType, minusValue, maxValue, extraValue)    \
-template<>                                                                                      \
-inline std::map<enumType, std::string>&                                                         \
-MagicEnum::GetMagicEnumMap<enumType>()                                                          \
-{                                                                                               \
-    static std::map<enumType, std::string> enumMap;                                             \
-    static bool isInit = false;                                                                 \
-    if (isInit == false) {                                                                      \
-        isInit = true;                                                                          \
-        ENUM2TEXT_FILL_MAP_MINMAX(enumType, enumMap, minusValue, maxValue);                     \
-        ENUM2TEXT_FILL_MAP_ADD_EXACT_VALUE(enumType, enumMap, extraValue);                      \
-    }                                                                                           \
-    return enumMap;                                                                             \
+#define ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(enumType, minusValue, maxValue, extraValue)           \
+template<>                                                                                             \
+inline std::map<enumType, std::string>&                                                                \
+MagicEnum::GetMagicEnumMap<enumType>()                                                                 \
+{                                                                                                      \
+    ENUM_MAP_MINMAX_AND_EXTRA_VALUE_DECLARE_IMPL(enumMap, enumType, minusValue, maxValue, extraValue); \
+    return enumMap;                                                                                    \
 }
 
 /** *************************************** **/
@@ -326,5 +342,27 @@ MagicEnum::GetMagicEnumMap<enumType>()                                          
 /** ENUM_MAP_FUNCTION()                     **/
 /** *************************************** **/
 #define ENUM_MAP_FUNCTION(enumType)                                 ENUM_MAP_MINMAX_FUNCTION_IMPL(enumType, 8, 128)
+
+
+
+/** *************************************** **/
+/** ENUM_MAP_AND_EXTRA_VALUE_DECLARE()     **/
+/** *************************************** **/
+#define ENUM_MAP_AND_EXTRA_VALUE_DECLARE(enumMapName, enumType, extraValue)     ENUM_MAP_MINMAX_AND_EXTRA_VALUE_DECLARE_IMPL(enumMapName, enumType, 8, 128, extraValue)
+
+/** *************************************** **/
+/** ENUM_MAP_MINMAX_DECLARE()              **/
+/** *************************************** **/
+#define ENUM_MAP_MINMAX_DECLARE(enumMapName, enumType, minusValue, maxValue)    ENUM_MAP_MINMAX_DECLARE_IMPL(enumMapName, enumType, minusValue, maxValue)
+
+/** *************************************** **/
+/** ENUM_MAP_MAX_DECLARE()                 **/
+/** *************************************** **/
+#define ENUM_MAP_MAX_DECLARE(enumMapName, enumType, maxValue)                   ENUM_MAP_MINMAX_DECLARE_IMPL(enumMapName, enumType, 0, maxValue)
+
+/** *************************************** **/
+/** ENUM_MAP_DECLARE()                     **/
+/** *************************************** **/
+#define ENUM_MAP_DECLARE(enumMapName, enumType)                                 ENUM_MAP_MINMAX_DECLARE_IMPL(enumMapName, enumType, 8, 128)
 
 #endif // _MAGIC_ENUM_CPP11_H

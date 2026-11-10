@@ -18,11 +18,14 @@ macros in the enumeration definition, or external code generation.
 
 | Macro | Registered range |
 |---|---|
+| `ENUM_MAP_DECLARE(T)` | `-8` to `128` |
+| `ENUM_MAP_MAX_DECLARE(T, max)` | `0` to `max` |
+| `ENUM_MAP_MINMAX_DECLARE(T, min, max)` | `min` to `max` |
+| `ENUM_MAP_AND_EXTRA_VALUE_DECLARE(T, extra)` | `-8` to `128`, plus `extra` |
 | `ENUM_MAP_FUNCTION(T)` | `-8` to `128` |
 | `ENUM_MAP_MAX_FUNCTION(T, max)` | `0` to `max` |
 | `ENUM_MAP_MINMAX_FUNCTION(T, min, max)` | `min` to `max` |
 | `ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(T, extra)` | `-8` to `128`, plus `extra` |
-| `ENUM_MAP_MINMAX_AND_EXTRA_VALUE_FUNCTION(T, min, max, extra)` | `min` to `max`, plus `extra` |
 
 Use the `EXTRA_VALUE` macros when an enumeration contains a value outside
 the configured range.
@@ -69,6 +72,22 @@ ENUM_MAP_FUNCTION(MainScope::NestedScope::Property);
 
 int main()
 {
+    ENUM_MAP_DECLARE(PropertyMap, MainScope::NestedScope::Property);
+    for (auto& it : PropertyMap) {
+        printf("PropertyMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
+    }
+    putchar('\n');
+
+    {
+        using namespace MainScope::NestedScope;
+
+        ENUM_MAP_DECLARE(myPropertyList, Property);
+        for (auto& it : myPropertyList) {
+            printf("MyPropertyMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
+        }
+        putchar('\n');
+    }
+
     auto myColorMap = MagicEnum::GetMagicEnumMap<Color>();
     for (auto& it : myColorMap) {
         printf("myColorMap: key: 0x%X value: %s \n", (int)it.first, it.second.c_str() ); 

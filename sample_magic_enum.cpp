@@ -40,6 +40,30 @@ ENUM_MAP_FUNCTION(MainScope::NestedScope::Property);
 
 int main()
 {
+    ENUM_MAP_DECLARE(PropertyMap, MainScope::NestedScope::Property);
+    for (auto& it : PropertyMap) {
+        printf("PropertyMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
+    }
+    putchar('\n');
+    /** output:
+        PropertyMap: key: 5 value: Activated 
+        PropertyMap: key: 6 value: PowerOff 
+    **/
+    
+    {
+        using namespace MainScope::NestedScope;
+
+        ENUM_MAP_DECLARE(myPropertyList, Property);
+        for (auto& it : myPropertyList) {
+            printf("MyPropertyMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
+        }
+        putchar('\n');
+    }
+    /** Same output as before, It can be used inside namespaces:
+        PropertyMap: key: 5 value: Activated 
+        PropertyMap: key: 6 value: PowerOff 
+    **/
+
     auto myColorMap = MagicEnum::GetMagicEnumMap<Color>();
     for (auto& it : myColorMap) {
         printf("myColorMap: key: 0x%X value: %s \n", (int)it.first, it.second.c_str() ); 

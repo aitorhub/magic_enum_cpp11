@@ -16,6 +16,18 @@ macros in the enumeration definition, or external code generation.
 - Generates an `std::map` from enumeration value to name.
 - Easy integration: copy one header into your project.
 
+## Installation
+
+Just copy `magic_enum_cpp11.hpp` into your project and include it:
+
+```cpp
+#include "magic_enum_cpp11.hpp"
+```
+
+No build system integration or external dependencies are required.
+
+## Macro functions
+
 | Macro | Registered range |
 |---|---|
 | `ENUM_MAP_DECLARE(T)` | `-8` to `128` |
@@ -151,19 +163,10 @@ myPropertyList: key: 5 value: Activated
 myPropertyList: key: 6 value: PowerOff 
 ```
 
-## Installation
-
-Copy `magic_enum_cpp11.hpp` into your project and include it:
-
-```cpp
-#include "magic_enum_cpp11.hpp"
-```
-
-No build system integration or external dependencies are required.
-
 ## Reflection macros
 
-Register an enumeration before using `MagicEnum::GetMagicEnumMap<T>()`.
+Just write  ENUM_MAP_DECLARE() and the first argument instance a std::map<EnumType, std::string> with the name provided.
+If you want to use it as function, first register with ENUM_MAP_FUNCTION() and then you can use `MagicEnum::GetMagicEnumMap<T>()`.
 
 ## Requirements
 

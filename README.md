@@ -63,32 +63,31 @@ enum class Color : uint32_t {
     Black = 0x80000000,
 };
 
-// this generates the GetMagicEnumMap<> functions (default range [-8, 128]
-/** Important: the ENUM_MAP_FUNCTION() function must be put OUTSIDE any namespace in order to work **/
-ENUM_MAP_FUNCTION(Option);
-
-// scan enum from -8 to 128 and an extra value given by the user
-ENUM_MAP_AND_EXTRA_VALUE_FUNCTION(Color, 0x80000000);
-
-enum class MiniOption { NOK = -3, OK =  1 };
-ENUM_MAP_MINMAX_FUNCTION(MiniOption, 3, 1);
-
 namespace MainScope {
     namespace NestedScope {
         enum class Property {
             Activated = 5,
             PowerOff,
         };
-    }
+    } 
 }
 
-ENUM_MAP_FUNCTION(MainScope::NestedScope::Property);
+void testing_function_macros();
 
 int main()
 {
-    ENUM_MAP_DECLARE(PropertyMap, MainScope::NestedScope::Property);
-    for (auto& it : PropertyMap) {
-        printf("PropertyMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
+    // ----------------------------------------------
+    // DECLARE Macros
+    // ----------------------------------------------
+    ENUM_MAP_DECLARE(OptionMap, Option);
+    for (auto& it : OptionMap) {
+        printf("OptionMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
+    }
+    putchar('\n');
+
+    ENUM_MAP_AND_EXTRA_VALUE_DECLARE(ColorMap, Color, 0x80000000);
+    for (auto& it : ColorMap) {
+        printf("ColorMap: key: 0x%X value: %s \n", (uint32_t)it.first, it.second.c_str() ); 
     }
     putchar('\n');
 
@@ -102,67 +101,45 @@ int main()
         putchar('\n');
     }
 
-    auto myColorMap = MagicEnum::GetMagicEnumMap<Color>();
-    for (auto& it : myColorMap) {
-        printf("myColorMap: key: 0x%X value: %s \n", (int)it.first, it.second.c_str() ); 
-    }
-    putchar('\n');
+    printf("---- Function Macros ---- \n"); 
+    testing_function_macros();
 
-    auto myOptionMap = MagicEnum::GetMagicEnumMap<Option>();
-    for (auto& it : myOptionMap) {
-        printf("myOptionMap: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
-    }
-    putchar('\n');
+    return 0;
+}
 
+// ----------------------------------------------
+// FUNCTION Macros
+// ----------------------------------------------
+// this generates the GetMagicEnumMap<> functions (default range [-32, 32]
+/** Important: the ENUM_MAP_FUNCTION() function must be put
+ *  OUTSIDE any namespace in order to work */
+ENUM_MAP_FUNCTION(Option);
+
+void testing_function_macros()
+{
     auto myPropertyList = MagicEnum::GetMagicEnumMap<MainScope::NestedScope::Property>();
     for (auto& it : myPropertyList) {
         printf("myPropertyList: key: %d value: %s \n", (int)it.first, it.second.c_str() ); 
     }
     putchar('\n');
-
-    /** ************************************************
-      * Other ways: First declare your enum map, and later populate it
-      ************************************************ */
-    std::map<Color, std::string> colorMap;
-    ENUM2TEXT_FILL_MAP(Color, colorMap);
-    /** output:
-        myColorMap: key: 0x5 value: Red 
-        myColorMap: key: 0x6 value: Green 
-        myColorMap: key: 0x8 value: Blue 
-    **/
-
-    // ... and later add the extra field with the big number
-    ENUM2TEXT_FILL_MAP_ADD_EXACT_VALUE(Color, colorMap, 0x80000000);
-    /** output:
-        myColorMap: key: 0x5 value: Red 
-        myColorMap: key: 0x6 value: Green 
-        myColorMap: key: 0x8 value: Blue 
-        myColorMap: key: 0x80000000 value: Black 
-    **/
-  
-    /** ************************************************
-      * Explicitly put the range, in this case, from -5 to 10 
-      ************************************************ */
-    std::map<Option, std::string> optionMap;
-    ENUM2TEXT_FILL_MAP_MINMAX(Option, optionMap, 5, 10);
-
-    return 0;
 }
 ```
 
 Output:
 ```text
+myOptionMap: key: -1 value: Minus 
+myOptionMap: key: 0 value: Zero 
+myOptionMap: key: 1 value: One
+
 myColorMap: key: 0x5 value: Red 
 myColorMap: key: 0x6 value: Green 
 myColorMap: key: 0x8 value: Blue 
 myColorMap: key: 0x80000000 value: Black
 
-myOptionMap: key: -1 value: Minus 
-myOptionMap: key: 0 value: Zero 
-myOptionMap: key: 1 value: One
-
 myPropertyList: key: 5 value: Activated 
-myPropertyList: key: 6 value: PowerOff 
+myPropertyList: key: 6 value: PowerOff
+
+...
 ```
 
 ## Reflection macros

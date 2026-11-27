@@ -15,6 +15,7 @@ macros in the enumeration definition, or external code generation.
 - Supports negative, explicit, and sparse enumeration values.
 - Generates an `std::map` from enumeration value to name.
 - Easy integration: copy one header into your project.
+- Compatible with GCC and MSVC
 
 Try it on the [Compiler Explorer](https://godbolt.org/z/n68aqzEP5)!
 

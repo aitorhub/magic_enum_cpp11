@@ -17,7 +17,7 @@ macros in the enumeration definition, or external code generation.
 - Easy integration: copy one header into your project.
 - Compatible with GCC and MSVC
 
-Try it on the [Compiler Explorer](https://godbolt.org/z/n68aqzEP5)!
+Try it on the [Compiler Explorer](https://godbolt.org/z/bds8zYE7f)!
 
 ## Installation
 
